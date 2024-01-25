@@ -1,6 +1,7 @@
 body{
 	margin: 0;
 	padding: 0;
+	font-family: 'Arial';
 }
 
 #container{
@@ -82,6 +83,16 @@ body{
 	border: 1px solid;
 	height: 30%;
 	width: 100%;
+	padding: 3px;
+	text-align: center;
+}
+
+#round{
+	font-size: 0.8vw;
+}
+
+#fact p{
+	margin: 0;
 }
 
 #main{
@@ -90,17 +101,89 @@ body{
 	display: flex;
 }
 
-#main div{
+#main1{
 	border: 1px solid;
 	width: 48%;
-}
-
-#main1{
 	margin-right: 2%;
+	padding: 20px;
+	padding-top: 40px;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	align-items: center;
 }
 
 #main2{
+	border: 1px solid;
+	width: 48%;
 	margin-left: 2%;
+	padding: 20px;
+	padding-top: 40px;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	align-items: center;
+}
+
+#icons{
+	width: 70%;
+	height: 50%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	font-size: 0.8vw;
+}
+
+#icons p{
+	margin: 0;
+}
+
+#dice{
+	border: 1px dotted;
+	width: 35%;
+	height: 100%;
+	margin-right: 3%;
+}
+
+#dice img{
+	width: 80%;
+	height: 100%;
+}
+
+#pray{
+	border: 1px dotted;
+	width: 35%;
+	height: 100%;
+	margin-left: 3%;
+}
+
+#pray img{
+	width: 80%;
+	height: 100%;
+	
+}
+
+#cardcount{
+	border: 1px solid;
+	position: absolute;
+	bottom: 2px;
+	left: 2px;
+	width: 30px;
+	height: 30px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+#card{
+	width: 10px;
+	height: 15px;
+	background: black;
+	margin-left: 2px;
+	border-radius: 2px;
 }
 
 #instructions{
