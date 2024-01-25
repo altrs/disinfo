@@ -39,6 +39,8 @@ let prayerResult2;
 let resultText;
 let resultText2;
 
+let round = 1;
+
 function generatePlayers(){
 	for(let i=0; i<8; i++){
 		let ct1 = document.getElementById(charTraits[i] + '1');
@@ -53,8 +55,11 @@ function generatePlayers(){
 
 let factHTML = document.getElementById('fact-text');
 function generateFact(){
-	randomFact = facts[Math.floor(Math.random() * facts.length)];
-	factHTML.innerHTML = randomFact.text;
+    randomFact = Math.floor(Math.random() * facts.length);
+    randomFact = facts.splice(randomFact, 1)[0];
+    factHTML.innerHTML = randomFact.text;
+
+    document.getElementById('round').innerHTML = `ROUND ${round}/5`
 }
 setInterval(() => {factHTML.style.fontWeight = (factHTML.style.fontWeight === 'bold') ? 'normal' : 'bold';}, 1000);
 
@@ -134,8 +139,8 @@ document.addEventListener("keydown", (event) => {
 let intervalId;
 function roundResults(){
 
-	if(resultsShowing == false){
-
+	if(resultsShowing == false && round <= 5){
+		round++;
 		resultsShowing = true;
 		intervalId = setInterval(toggleText, 1000);
 
@@ -191,9 +196,13 @@ function roundResults(){
 				}
 
 			} else if (player1Result == 'ignored'){
-				resultText.textContent = 'SORRY. YOUR PRAYERS HAVE NOT BEEN ANSWERED TODAY.';
+				resultText.textContent = 'SORRY. YOUR PRAYERS HAVE NOT BEEN ANSWERED TODAY. YOUR CHARACTER BELIEVES THE STATEMENT.';
 				resultText.style.margin = '20px';
 				document.getElementById('pray1').appendChild(resultText);
+
+				player1Cards.push(randomFact);
+				document.getElementById('cc1').innerHTML = `${player1Cards.length}`;
+				console.log(player1Cards);
 			}
 		}
 
@@ -249,18 +258,20 @@ function roundResults(){
 				}
 
 			} else if (player2Result == 'ignored'){
-				resultText2.textContent = 'SORRY. YOUR PRAYERS HAVE NOT BEEN ANSWERED TODAY.';
+				resultText2.textContent = 'SORRY. YOUR PRAYERS HAVE NOT BEEN ANSWERED TODAY. YOUR CHARACTER BELIEVES THE STATEMENT.';
 				resultText2.style.margin = '20px';
 				document.getElementById('pray2').appendChild(resultText2);
+
+				player2Cards.push(randomFact);
+				document.getElementById('cc2').innerHTML = `${player2Cards.length}`;
+				console.log(player2Cards);
 			}
-
-
 		}
 
 		console.log(player1Result);
 	  	console.log(player2Result);
 
-	}
+	} else {finalResults();}
 
 }
 
@@ -284,6 +295,8 @@ function reset() {
     document.getElementById('rt1').remove();
     document.getElementById('rt2').remove();
     clearInterval(intervalId);
+
+    generateFact();
 
     // Reset div styles
     document.getElementById('dice1').querySelector('img').style.display = 'flex';
@@ -312,8 +325,6 @@ function reset() {
     document.getElementById('main2').querySelector('p').innerHTML = "MAKE YOUR CHOICE:";
 }
 
-
-
 let isResultsText = true;
 function toggleText() {
     const main1Paragraph = document.getElementById('main1').querySelector('p');
@@ -326,6 +337,11 @@ function toggleText() {
         main2Paragraph.innerHTML = "RESULTS";
     }
     isResultsText = !isResultsText;
+}
+
+
+function finalResults(){
+
 }
 
 generatePlayers();
