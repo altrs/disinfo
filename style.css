@@ -106,6 +106,7 @@ body{
 	padding: 20px;
 	height: 50%;
 	display: flex;
+	overflow: hidden;
 }
 
 #main1{
@@ -233,3 +234,44 @@ body{
 	margin: 0;
 	font-size: 1vw;
 }
+
+#results{
+	display: none;
+	width: 700px;
+	height: 450px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 20px;
+	background-color: #fff;
+	border: 1px solid;
+	z-index: 1;
+	text-align: center;
+}
+
+#divcontainer{
+	height: 70%;
+	padding: 10px;
+	display: flex;
+	flex-direction: row;
+}
+
+#divcontainer div{
+	height: 100%;
+	width: 70%;
+	border: 1px solid;
+	overflow: scroll;
+}
+
+
+
+
+
+
+
+
+
+
+
+

@@ -61,7 +61,7 @@ function generateFact(){
 
     document.getElementById('round').innerHTML = `ROUND ${round}/5`
 }
-setInterval(() => {factHTML.style.fontWeight = (factHTML.style.fontWeight === 'bold') ? 'normal' : 'bold';}, 1000);
+setInterval(() => {factHTML.style.fontStyle = (factHTML.style.fontStyle === 'italic') ? 'normal' : 'italic';}, 1000);
 
 
 document.addEventListener("keydown", (event) => {
@@ -144,10 +144,16 @@ function roundResults(){
 		resultsShowing = true;
 		intervalId = setInterval(toggleText, 1000);
 
+		document.getElementById('dice1').querySelector('p').style.visibility = "hidden";	
+		document.getElementById('pray1').querySelector('p').style.visibility = "hidden";
+		document.getElementById('dice2').querySelector('p').style.visibility = 'hidden';
+		document.getElementById('pray2').querySelector('p').style.visibility = 'hidden';
+
 		if(player1Choice == 'dice'){
-			document.getElementById('dice1').querySelector('img').style.display = 'none';
-			document.getElementById('dice1').querySelector('p').style.display = 'none';
+			document.getElementById('dice1').querySelector('img').style.visibility = "hidden";
 			resultText = document.createElement('p');
+			resultText.style.position = 'relative';
+			resultText.style.top = '-100%';
 			resultText.id = "rt1";
 
 			let dice = rollDice();
@@ -168,9 +174,10 @@ function roundResults(){
 				document.getElementById('dice1').appendChild(resultText);
 			}
 		} else if (player1Choice == 'pray'){
-			document.getElementById('pray1').querySelector('img').style.display = 'none';
-			document.getElementById('pray1').querySelector('p').style.display = 'none';
+			document.getElementById('pray1').querySelector('img').style.visibility = "hidden";
 			resultText = document.createElement('p');
+			resultText.style.position = 'relative';
+			resultText.style.top = '-100%';
 			resultText.id = "rt1";
 
 			player1Result = pray();
@@ -180,14 +187,18 @@ function roundResults(){
 				if(randomFact.isTrue == false){
 					resultText.textContent = 'YOUR PRAYERS HAVE BEEN ANSWERED! THE SALT SHAKER HAS FALLEN, BESTOWING UPON YOUR CHARACTER A GLIMPSE OF CLARITY. THE STATEMENT IS FALSE, AND YOUR CHARACTER REJECTS IT. THE SALT SHAKER HAS ALSO CLEANSED YOUR CHARACTERS MIND, ANY FALSE STATMENTS PREVIOUSLY COLLECTED HAVE BEEN PURGED.';
 					resultText.style.margin = '10px';
-					resultText.style.fontSize = '0.55vw';
+					resultText.style.marginTop = '0px';
+					resultText.style.fontSize = '0.5vw';
 					document.getElementById('pray1').appendChild(resultText);
 
-					//clear array of false facts
+					player1Cards = player1Cards.filter(obj => obj.isTrue);
+					document.getElementById('cc1').innerHTML = `${player1Cards.length}`;
+					console.log(player1Cards);
 				}else if(randomFact.isTrue == true){
 					resultText.textContent = 'YOUR PRAYERS HAVE BEEN ANSWERED! THE SALT SHAKER HAS FALLEN, BESTOWING UPON YOUR CHARACTER A GLIMPSE OF CLARITY. THE STATEMENT IS TRUE, AND YOUR CHARACTER BELIEVES IT.';
-					resultText.style.margin = '10px';
-					resultText.style.fontSize = '0.5vw';
+					resultText.style.margin = '8px';
+					resultText.style.marginTop = '0px';
+					resultText.style.fontSize = '0.6vw';
 					document.getElementById('pray1').appendChild(resultText);
 
 					player1Cards.push(randomFact);
@@ -197,7 +208,8 @@ function roundResults(){
 
 			} else if (player1Result == 'ignored'){
 				resultText.textContent = 'SORRY. YOUR PRAYERS HAVE NOT BEEN ANSWERED TODAY. YOUR CHARACTER BELIEVES THE STATEMENT.';
-				resultText.style.margin = '20px';
+				resultText.style.margin = '10px';
+				resultText.style.marginTop = '0px';
 				document.getElementById('pray1').appendChild(resultText);
 
 				player1Cards.push(randomFact);
@@ -207,9 +219,10 @@ function roundResults(){
 		}
 
 		if(player2Choice == 'dice'){
-			document.getElementById('dice2').querySelector('img').style.display = 'none';
-			document.getElementById('dice2').querySelector('p').style.display = 'none';
+			document.getElementById('dice2').querySelector('img').style.visibility = 'hidden';
 			resultText2 = document.createElement('p');
+			resultText2.style.position = 'relative';
+			resultText2.style.top = '-100%';
 			resultText2.id = "rt2";
 
 			let dice = rollDice();
@@ -230,9 +243,10 @@ function roundResults(){
 				document.getElementById('dice2').appendChild(resultText2);
 			}
 		} else if (player2Choice == 'pray'){
-			document.getElementById('pray2').querySelector('img').style.display = 'none';
-			document.getElementById('pray2').querySelector('p').style.display = 'none';
+			document.getElementById('pray2').querySelector('img').style.visibility = 'hidden';
 			resultText2 = document.createElement('p');
+			resultText2.style.position = 'relative';
+			resultText2.style.top = '-100%';
 			resultText2.id = "rt2";
 
 			player2Result = pray();
@@ -242,14 +256,20 @@ function roundResults(){
 				if(randomFact.isTrue == false){
 					resultText2.textContent = 'YOUR PRAYERS HAVE BEEN ANSWERED! THE SALT SHAKER HAS FALLEN, BESTOWING UPON YOUR CHARACTER A GLIMPSE OF CLARITY. THE STATEMENT IS FALSE, AND YOUR CHARACTER REJECTS IT. THE SALT SHAKER HAS ALSO CLEANSED YOUR CHARACTERS MIND, ANY FALSE STATMENTS PREVIOUSLY COLLECTED HAVE BEEN PURGED.';
 					resultText2.style.margin = '10px';
-					resultText2.style.fontSize = '0.55vw';
+					resultText2.style.marginTop = '0px';
+					resultText2.style.fontSize = '0.5vw';
 					document.getElementById('pray2').appendChild(resultText2);
 
-					//clear array of false facts
+					player2Cards = player2Cards.filter(obj => obj.isTrue);
+					document.getElementById('cc2').innerHTML = `${player2Cards.length}`;
+					console.log(player2Cards);
+
 				}else if(randomFact.isTrue == true){
 					resultText2.textContent = 'YOUR PRAYERS HAVE BEEN ANSWERED! THE SALT SHAKER HAS FALLEN, BESTOWING UPON YOUR CHARACTER A GLIMPSE OF CLARITY. THE STATEMENT IS TRUE, AND YOUR CHARACTER BELIEVES IT.';
-					resultText2.style.margin = '10px';
-					resultText2.style.fontSize = '0.5vw';
+					resultText.style.margin = '8px';
+					resultText.style.marginTop = '0px';
+					resultText.style.fontSize = '0.6vw';
+					document.getElementById('pray2').style.padding = "0px"
 					document.getElementById('pray2').appendChild(resultText2);
 
 					player2Cards.push(randomFact);
@@ -259,7 +279,9 @@ function roundResults(){
 
 			} else if (player2Result == 'ignored'){
 				resultText2.textContent = 'SORRY. YOUR PRAYERS HAVE NOT BEEN ANSWERED TODAY. YOUR CHARACTER BELIEVES THE STATEMENT.';
-				resultText2.style.margin = '20px';
+				resultText2.style.margin = '10px';
+				resultText2.style.marginTop = '0px';
+				resultText2.style.fontSize = '0.5vw';
 				document.getElementById('pray2').appendChild(resultText2);
 
 				player2Cards.push(randomFact);
@@ -299,15 +321,15 @@ function reset() {
     generateFact();
 
     // Reset div styles
-    document.getElementById('dice1').querySelector('img').style.display = 'flex';
-    document.getElementById('dice1').querySelector('p').style.display = 'block';
-    document.getElementById('pray1').querySelector('img').style.display = 'flex';
-    document.getElementById('pray1').querySelector('p').style.display = 'block';
+    document.getElementById('dice1').querySelector('img').style.visibility = 'visible';
+    document.getElementById('dice1').querySelector('p').style.visibility = 'visible';
+    document.getElementById('pray1').querySelector('img').style.visibility = 'visible';
+    document.getElementById('pray1').querySelector('p').style.visibility = 'visible';
 
-    document.getElementById('dice2').querySelector('img').style.display = 'flex';
-    document.getElementById('dice2').querySelector('p').style.display = 'block';
-    document.getElementById('pray2').querySelector('img').style.display = 'flex';
-    document.getElementById('pray2').querySelector('p').style.display = 'block';
+    document.getElementById('dice2').querySelector('img').style.visibility = 'visible';
+    document.getElementById('dice2').querySelector('p').style.visibility = 'visible';
+    document.getElementById('pray2').querySelector('img').style.visibility = 'visible';
+    document.getElementById('pray2').querySelector('p').style.visibility = 'visible';
 
     // Reset div borders
     document.getElementById('dice1').style.border = "1px dotted black";
@@ -315,10 +337,10 @@ function reset() {
     document.getElementById('dice2').style.border = "1px dotted black";
     document.getElementById('pray2').style.border = "1px dotted black";
 
-	document.getElementById('dice1').querySelector('p').style.display = 'flex';
-	document.getElementById('dice2').querySelector('p').style.display = 'flex';
-	document.getElementById('pray1').querySelector('p').style.display = 'flex';
-	document.getElementById('pray2').querySelector('p').style.display = 'flex';
+	document.getElementById('dice1').querySelector('p').style.display = 'block';
+	document.getElementById('dice2').querySelector('p').style.display = 'block';
+	document.getElementById('pray1').querySelector('p').style.display = 'block';
+	document.getElementById('pray2').querySelector('p').style.display = 'block';
 
     // Reset paragraph content
     document.getElementById('main1').querySelector('p').innerHTML = "MAKE YOUR CHOICE:";
@@ -341,14 +363,25 @@ function toggleText() {
 
 
 function finalResults(){
+	let results1 = document.getElementById('r1');
+	let results2 = document.getElementById('r2');
+	document.getElementById('results').style.display = "block";
+
+	for(let i=0; i<player1Cards.length; i++){
+		let rtext = document.createElement('p')
+		rtext.innerHTML = player1Cards[i].text + ` which is: <b>${player1Cards[i].isTrue}</b>`;
+		results1.appendChild(rtext);
+	}
+	for(let i=0; i<player2Cards.length; i++){
+		let rtext = document.createElement('p')
+		rtext.innerHTML = player2Cards[i].text + ` which is: <b>${player2Cards[i].isTrue}</b>`;
+		results2.appendChild(rtext);
+	}
 
 }
 
 generatePlayers();
 generateFact();
-
-
-
 
 
 
