@@ -1,5 +1,5 @@
 let names = ['Oliver Anderson', 'Maya Rodriguez', 'Ethan Bennett','Mason Wright', 'Evelyn Hayes', 'Alexander Kim', 'Kofi Mensah', 'Mei Chen', 'Aisha Khan', 'Lars Andersen', 'Sophie Müller', 'Valentina Carter', 'Matias Perez', 'Liam Foster'];
-let generations = ['Silent Generation', 'Baby Boomer', 'Gen X', 'Millennial', 'Gen Z'];
+let generations = ['Silent Generation', 'Boomer', 'Gen X', 'Millennial', 'Gen Z'];
 let affilations = ['Democrat', 'Republican', 'Libertarian', 'Green Party', 'Constitution Party', 'Socialist', 'Democratic Socialist', 'Independent'];
 let locations = ['Boise', 'Savannah','Anchorage', 'Wichita', 'Providence', 'Tucson', 'Omaha', 'Birmingham','Madison', 'Spokane', 'Baton Rouge', 'Fargo', 'Columbia', 'Eugene','Springfield'];
 let genders = ['She/her', 'She/they', 'He/him', 'He/they', 'She/He/They', 'They/them', 'Prefer not to say'];
@@ -131,28 +131,19 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
+let intervalId;
 function roundResults(){
 
 	if(resultsShowing == false){
 
 		resultsShowing = true;
-		document.getElementById('main1').querySelector('p').innerHTML = "RESULTS";
-		document.getElementById('main2').querySelector('p').innerHTML = "RESULTS";
-		// document.getElementById('main1').style.background = "yellow";
-		// setTimeout(function() {
-		//   document.getElementById('main1').style.background = "transparent";
-		//   document.getElementById('main2').style.background = "yellow";
-		//   	setTimeout(function() {
-		// 	 	document.getElementById('main2').style.background = "transparent";
-		// 	  	document.getElementById('main1').querySelector('p').innerHTML = "PRESS B TO CONTINUE";
-		// 		document.getElementById('main2').querySelector('p').innerHTML = "PRESS B TO CONTINUE";
-		// 	}, 7000);
-		// }, 7000);
+		intervalId = setInterval(toggleText, 1000);
 
 		if(player1Choice == 'dice'){
 			document.getElementById('dice1').querySelector('img').style.display = 'none';
 			document.getElementById('dice1').querySelector('p').style.display = 'none';
 			resultText = document.createElement('p');
+			resultText.id = "rt1";
 
 			let dice = rollDice();
 			if(dice % 2 === 0){
@@ -172,13 +163,45 @@ function roundResults(){
 				document.getElementById('dice1').appendChild(resultText);
 			}
 		} else if (player1Choice == 'pray'){
+			document.getElementById('pray1').querySelector('img').style.display = 'none';
+			document.getElementById('pray1').querySelector('p').style.display = 'none';
+			resultText = document.createElement('p');
+			resultText.id = "rt1";
+
 			player1Result = pray();
+			if(player1Result == 'answered'){
+				//gif change
+
+				if(randomFact.isTrue == false){
+					resultText.textContent = 'YOUR PRAYERS HAVE BEEN ANSWERED! THE SALT SHAKER HAS FALLEN, BESTOWING UPON YOUR CHARACTER A GLIMPSE OF CLARITY. THE STATEMENT IS FALSE, AND YOUR CHARACTER REJECTS IT. THE SALT SHAKER HAS ALSO CLEANSED YOUR CHARACTERS MIND, ANY FALSE STATMENTS PREVIOUSLY COLLECTED HAVE BEEN PURGED.';
+					resultText.style.margin = '10px';
+					resultText.style.fontSize = '0.55vw';
+					document.getElementById('pray1').appendChild(resultText);
+
+					//clear array of false facts
+				}else if(randomFact.isTrue == true){
+					resultText.textContent = 'YOUR PRAYERS HAVE BEEN ANSWERED! THE SALT SHAKER HAS FALLEN, BESTOWING UPON YOUR CHARACTER A GLIMPSE OF CLARITY. THE STATEMENT IS TRUE, AND YOUR CHARACTER BELIEVES IT.';
+					resultText.style.margin = '10px';
+					resultText.style.fontSize = '0.5vw';
+					document.getElementById('pray1').appendChild(resultText);
+
+					player1Cards.push(randomFact);
+					document.getElementById('cc1').innerHTML = `${player1Cards.length}`;
+					console.log(player1Cards);
+				}
+
+			} else if (player1Result == 'ignored'){
+				resultText.textContent = 'SORRY. YOUR PRAYERS HAVE NOT BEEN ANSWERED TODAY.';
+				resultText.style.margin = '20px';
+				document.getElementById('pray1').appendChild(resultText);
+			}
 		}
 
 		if(player2Choice == 'dice'){
 			document.getElementById('dice2').querySelector('img').style.display = 'none';
 			document.getElementById('dice2').querySelector('p').style.display = 'none';
 			resultText2 = document.createElement('p');
+			resultText2.id = "rt2";
 
 			let dice = rollDice();
 			if(dice % 2 === 0){
@@ -198,7 +221,40 @@ function roundResults(){
 				document.getElementById('dice2').appendChild(resultText2);
 			}
 		} else if (player2Choice == 'pray'){
+			document.getElementById('pray2').querySelector('img').style.display = 'none';
+			document.getElementById('pray2').querySelector('p').style.display = 'none';
+			resultText2 = document.createElement('p');
+			resultText2.id = "rt2";
+
 			player2Result = pray();
+			if(player2Result == 'answered'){
+				//gif change
+
+				if(randomFact.isTrue == false){
+					resultText2.textContent = 'YOUR PRAYERS HAVE BEEN ANSWERED! THE SALT SHAKER HAS FALLEN, BESTOWING UPON YOUR CHARACTER A GLIMPSE OF CLARITY. THE STATEMENT IS FALSE, AND YOUR CHARACTER REJECTS IT. THE SALT SHAKER HAS ALSO CLEANSED YOUR CHARACTERS MIND, ANY FALSE STATMENTS PREVIOUSLY COLLECTED HAVE BEEN PURGED.';
+					resultText2.style.margin = '10px';
+					resultText2.style.fontSize = '0.55vw';
+					document.getElementById('pray2').appendChild(resultText2);
+
+					//clear array of false facts
+				}else if(randomFact.isTrue == true){
+					resultText2.textContent = 'YOUR PRAYERS HAVE BEEN ANSWERED! THE SALT SHAKER HAS FALLEN, BESTOWING UPON YOUR CHARACTER A GLIMPSE OF CLARITY. THE STATEMENT IS TRUE, AND YOUR CHARACTER BELIEVES IT.';
+					resultText2.style.margin = '10px';
+					resultText2.style.fontSize = '0.5vw';
+					document.getElementById('pray2').appendChild(resultText2);
+
+					player2Cards.push(randomFact);
+					document.getElementById('cc2').innerHTML = `${player2Cards.length}`;
+					console.log(player2Cards);
+				}
+
+			} else if (player2Result == 'ignored'){
+				resultText2.textContent = 'SORRY. YOUR PRAYERS HAVE NOT BEEN ANSWERED TODAY.';
+				resultText2.style.margin = '20px';
+				document.getElementById('pray2').appendChild(resultText2);
+			}
+
+
 		}
 
 		console.log(player1Result);
@@ -216,28 +272,60 @@ function rollDice(){
 
 function pray(){
 	let randomValue = Math.random();
- 	return randomValue < 0.8 ? 'ignored' : 'answered';
+ 	return randomValue < 0.1 ? 'ignored' : 'answered';
 }
 
-function reset(){
-	player1result = '';
-	player2Result = '';
-	player1Choice = null;
-	player2Choice = null;
-	resultsShowing = false;
-	resultText = '';
-	resultText2 = '';
+function reset() {
+    player1Result = '';
+    player2Result = '';
+    player1Choice = null;
+    player2Choice = null;
+    resultsShowing = false;
+    document.getElementById('rt1').remove();
+    document.getElementById('rt2').remove();
+    clearInterval(intervalId);
 
-	document.getElementById('main1').querySelector('p').style.background = "transparent";
-    document.getElementById('main2').querySelector('p').style.background = "transparent";
+    // Reset div styles
+    document.getElementById('dice1').querySelector('img').style.display = 'flex';
+    document.getElementById('dice1').querySelector('p').style.display = 'block';
+    document.getElementById('pray1').querySelector('img').style.display = 'flex';
+    document.getElementById('pray1').querySelector('p').style.display = 'block';
+
+    document.getElementById('dice2').querySelector('img').style.display = 'flex';
+    document.getElementById('dice2').querySelector('p').style.display = 'block';
+    document.getElementById('pray2').querySelector('img').style.display = 'flex';
+    document.getElementById('pray2').querySelector('p').style.display = 'block';
+
+    // Reset div borders
     document.getElementById('dice1').style.border = "1px dotted black";
     document.getElementById('pray1').style.border = "1px dotted black";
     document.getElementById('dice2').style.border = "1px dotted black";
     document.getElementById('pray2').style.border = "1px dotted black";
+
+	document.getElementById('dice1').querySelector('p').style.display = 'flex';
+	document.getElementById('dice2').querySelector('p').style.display = 'flex';
+	document.getElementById('pray1').querySelector('p').style.display = 'flex';
+	document.getElementById('pray2').querySelector('p').style.display = 'flex';
+
+    // Reset paragraph content
     document.getElementById('main1').querySelector('p').innerHTML = "MAKE YOUR CHOICE:";
-	document.getElementById('main2').querySelector('p').innerHTML = "MAKE YOUR CHOICE:";
-	document.getElementById('dice1').querySelector('img').style.display = 'block';
-	document.getElementById('dice2').querySelector('img').style.display = 'block';
+    document.getElementById('main2').querySelector('p').innerHTML = "MAKE YOUR CHOICE:";
+}
+
+
+
+let isResultsText = true;
+function toggleText() {
+    const main1Paragraph = document.getElementById('main1').querySelector('p');
+    const main2Paragraph = document.getElementById('main2').querySelector('p');
+    if (isResultsText) {
+        main1Paragraph.innerHTML = "PRESS B TO CONTINUE";
+        main2Paragraph.innerHTML = "PRESS B TO CONTINUE";
+    } else {
+        main1Paragraph.innerHTML = "RESULTS";
+        main2Paragraph.innerHTML = "RESULTS";
+    }
+    isResultsText = !isResultsText;
 }
 
 generatePlayers();
