@@ -22,17 +22,22 @@ let facts = [
    	{ text: "It has been documented that SARS-CoV-2 (COVID) has transmitted between humans and free-ranging white-tailed deer.", isTrue: true},
 ];
 
+let randomFact;
+
 let player1Cards = [];
 let player2Cards = [];
 let player1Choice = null;
 let player2Choice = null;
 
+let resultsShowing = false;
 let player1Result = '';
 let player2Result = '';
 let rolledNumber1;
 let rolledNumber2;
 let prayerResult1;
 let prayerResult2;
+let resultText;
+let resultText2;
 
 function generatePlayers(){
 	for(let i=0; i<8; i++){
@@ -48,7 +53,7 @@ function generatePlayers(){
 
 let factHTML = document.getElementById('fact-text');
 function generateFact(){
-	let randomFact = facts[Math.floor(Math.random() * facts.length)];
+	randomFact = facts[Math.floor(Math.random() * facts.length)];
 	factHTML.innerHTML = randomFact.text;
 }
 setInterval(() => {factHTML.style.fontWeight = (factHTML.style.fontWeight === 'bold') ? 'normal' : 'bold';}, 1000);
@@ -120,27 +125,119 @@ document.addEventListener("keydown", (event) => {
         	document.getElementById('main1').querySelector('p').style.background = "red";
         	document.getElementById('main2').querySelector('p').style.background = "red";
         }
+    } else if (event.key === 'b') {
+    	reset();
+    	console.log("reset");
     }
 });
 
 function roundResults(){
-	if(player1Choice == 'dice'){
-		let dice = rollDice();
-		if(dice % 2 === 0){player1Result = 'believes';}
-		else{player1Result = 'rejects';}
-	} else if (player1Choice == 'pray'){
+
+	if(resultsShowing == false){
+
+		resultsShowing = true;
+		document.getElementById('main1').querySelector('p').innerHTML = "RESULTS";
+		document.getElementById('main2').querySelector('p').innerHTML = "RESULTS";
+		// document.getElementById('main1').style.background = "yellow";
+		// setTimeout(function() {
+		//   document.getElementById('main1').style.background = "transparent";
+		//   document.getElementById('main2').style.background = "yellow";
+		//   	setTimeout(function() {
+		// 	 	document.getElementById('main2').style.background = "transparent";
+		// 	  	document.getElementById('main1').querySelector('p').innerHTML = "PRESS B TO CONTINUE";
+		// 		document.getElementById('main2').querySelector('p').innerHTML = "PRESS B TO CONTINUE";
+		// 	}, 7000);
+		// }, 7000);
+
+		if(player1Choice == 'dice'){
+			document.getElementById('dice1').querySelector('img').style.display = 'none';
+			document.getElementById('dice1').querySelector('p').style.display = 'none';
+			resultText = document.createElement('p');
+
+			let dice = rollDice();
+			if(dice % 2 === 0){
+				player1Result = 'believes';
+				resultText.textContent = `ROLLED: ${dice}.` +  'Even. Your character believes the given statment.';
+				resultText.style.margin = '20px';
+				document.getElementById('dice1').appendChild(resultText);
+
+				player1Cards.push(randomFact);
+				document.getElementById('cc1').innerHTML = `${player1Cards.length}`;
+				console.log(player1Cards);
+			}
+			else{
+				player1Result = 'rejects';
+				resultText.textContent = `ROLLED: ${dice}.` +  'Odd. Your character rejects the given statment.';
+				resultText.style.margin = '20px';
+				document.getElementById('dice1').appendChild(resultText);
+			}
+		} else if (player1Choice == 'pray'){
+			player1Result = pray();
+		}
+
+		if(player2Choice == 'dice'){
+			document.getElementById('dice2').querySelector('img').style.display = 'none';
+			document.getElementById('dice2').querySelector('p').style.display = 'none';
+			resultText2 = document.createElement('p');
+
+			let dice = rollDice();
+			if(dice % 2 === 0){
+				player2Result = 'believes';
+				resultText2.textContent = `ROLLED: ${dice}.` +  'Even. Your character believes the given statment.';
+				resultText2.style.margin = '20px';
+				document.getElementById('dice2').appendChild(resultText2);
+
+				player2Cards.push(randomFact);
+				document.getElementById('cc2').innerHTML = `${player2Cards.length}`;
+				console.log(player2Cards);
+			}
+			else{
+				player2Result = 'rejects';
+				resultText2.textContent = `ROLLED: ${dice}.` +  'Odd. Your character rejects the given statment.';
+				resultText2.style.margin = '20px';
+				document.getElementById('dice2').appendChild(resultText2);
+			}
+		} else if (player2Choice == 'pray'){
+			player2Result = pray();
+		}
+
+		console.log(player1Result);
+	  	console.log(player2Result);
 
 	}
+
 }
 
 function rollDice(){
-	const randomDecimal = Math.random();
-	const randomNumber = Math.floor(randomDecimal * 6) + 1;
+	let randomDecimal = Math.random();
+	let randomNumber = Math.floor(randomDecimal * 6) + 1;
 	return randomNumber;
 }
 
 function pray(){
-	
+	let randomValue = Math.random();
+ 	return randomValue < 0.8 ? 'ignored' : 'answered';
+}
+
+function reset(){
+	player1result = '';
+	player2Result = '';
+	player1Choice = null;
+	player2Choice = null;
+	resultsShowing = false;
+	resultText = '';
+	resultText2 = '';
+
+	document.getElementById('main1').querySelector('p').style.background = "transparent";
+    document.getElementById('main2').querySelector('p').style.background = "transparent";
+    document.getElementById('dice1').style.border = "1px dotted black";
+    document.getElementById('pray1').style.border = "1px dotted black";
+    document.getElementById('dice2').style.border = "1px dotted black";
+    document.getElementById('pray2').style.border = "1px dotted black";
+    document.getElementById('main1').querySelector('p').innerHTML = "MAKE YOUR CHOICE:";
+	document.getElementById('main2').querySelector('p').innerHTML = "MAKE YOUR CHOICE:";
+	document.getElementById('dice1').querySelector('img').style.display = 'block';
+	document.getElementById('dice2').querySelector('img').style.display = 'block';
 }
 
 generatePlayers();
