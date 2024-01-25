@@ -84,6 +84,8 @@ body{
 	height: 30%;
 	width: 100%;
 	padding: 3px;
+	padding-left: 7px;
+	padding-right: 7px;
 	text-align: center;
 }
 
@@ -92,7 +94,12 @@ body{
 }
 
 #fact p{
-	margin: 0;
+	margin: 3px;
+	margin-bottom: 5px;
+}
+
+#fact-text{
+	font-size: 0.9vw;
 }
 
 #main{
@@ -140,26 +147,51 @@ body{
 	margin: 0;
 }
 
-#dice{
+#dice1{
 	border: 1px dotted;
 	width: 35%;
 	height: 100%;
 	margin-right: 3%;
 }
 
-#dice img{
+#dice1 img{
 	width: 80%;
 	height: 100%;
 }
 
-#pray{
+#pray1{
 	border: 1px dotted;
 	width: 35%;
 	height: 100%;
 	margin-left: 3%;
 }
 
-#pray img{
+#pray1 img{
+	width: 80%;
+	height: 100%;
+	
+}
+
+#dice2{
+	border: 1px dotted;
+	width: 35%;
+	height: 100%;
+	margin-right: 3%;
+}
+
+#dice2 img{
+	width: 80%;
+	height: 100%;
+}
+
+#pray2{
+	border: 1px dotted;
+	width: 35%;
+	height: 100%;
+	margin-left: 3%;
+}
+
+#pray2 img{
 	width: 80%;
 	height: 100%;
 	
