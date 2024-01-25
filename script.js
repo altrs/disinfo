@@ -139,7 +139,7 @@ document.addEventListener("keydown", (event) => {
 let intervalId;
 function roundResults(){
 
-	if(resultsShowing == false && round <= 5){
+	if(resultsShowing == false && round < 5){
 		round++;
 		resultsShowing = true;
 		intervalId = setInterval(toggleText, 1000);
@@ -182,7 +182,7 @@ function roundResults(){
 
 			player1Result = pray();
 			if(player1Result == 'answered'){
-				//gif change
+				document.getElementById('shakerimg').src = "spill.gif";
 
 				if(randomFact.isTrue == false){
 					resultText.textContent = 'YOUR PRAYERS HAVE BEEN ANSWERED! THE SALT SHAKER HAS FALLEN, BESTOWING UPON YOUR CHARACTER A GLIMPSE OF CLARITY. THE STATEMENT IS FALSE, AND YOUR CHARACTER REJECTS IT. THE SALT SHAKER HAS ALSO CLEANSED YOUR CHARACTERS MIND, ANY FALSE STATMENTS PREVIOUSLY COLLECTED HAVE BEEN PURGED.';
@@ -266,9 +266,9 @@ function roundResults(){
 
 				}else if(randomFact.isTrue == true){
 					resultText2.textContent = 'YOUR PRAYERS HAVE BEEN ANSWERED! THE SALT SHAKER HAS FALLEN, BESTOWING UPON YOUR CHARACTER A GLIMPSE OF CLARITY. THE STATEMENT IS TRUE, AND YOUR CHARACTER BELIEVES IT.';
-					resultText.style.margin = '8px';
-					resultText.style.marginTop = '0px';
-					resultText.style.fontSize = '0.6vw';
+					resultText2.style.margin = '8px';
+					resultText2.style.marginTop = '0px';
+					resultText2.style.fontSize = '0.6vw';
 					document.getElementById('pray2').style.padding = "0px"
 					document.getElementById('pray2').appendChild(resultText2);
 
@@ -293,7 +293,7 @@ function roundResults(){
 		console.log(player1Result);
 	  	console.log(player2Result);
 
-	} else {finalResults();}
+	} else if(round >= 5) {finalResults();}
 
 }
 
@@ -319,6 +319,8 @@ function reset() {
     clearInterval(intervalId);
 
     generateFact();
+
+    document.getElementById('shakerimg').src = "shake.gif";
 
     // Reset div styles
     document.getElementById('dice1').querySelector('img').style.visibility = 'visible';

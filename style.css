@@ -252,20 +252,28 @@ body{
 
 #divcontainer{
 	height: 70%;
-	padding: 10px;
 	display: flex;
 	flex-direction: row;
 }
 
 #divcontainer div{
-	height: 100%;
+	height: 90%;
 	width: 70%;
+	padding: 15px;
 	border: 1px solid;
 	overflow: scroll;
 }
 
 
+#shaker{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 
+#shaker img{
+	width: 50%;
+}
 
 
 
