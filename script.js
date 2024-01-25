@@ -27,6 +27,13 @@ let player2Cards = [];
 let player1Choice = null;
 let player2Choice = null;
 
+let player1Result = '';
+let player2Result = '';
+let rolledNumber1;
+let rolledNumber2;
+let prayerResult1;
+let prayerResult2;
+
 function generatePlayers(){
 	for(let i=0; i<8; i++){
 		let ct1 = document.getElementById(charTraits[i] + '1');
@@ -93,6 +100,11 @@ function changeChoice(player, input) {
 	        document.getElementById('dice2').style.border = "1px dotted black";
 	    }
 	}
+
+	if(player1Choice != null && player2Choice != null){
+		document.getElementById('main1').querySelector('p').innerHTML = "PRESS SPACE BAR TO SUBMIT CHOICES";
+		document.getElementById('main2').querySelector('p').innerHTML = "PRESS SPACE BAR TO SUBMIT CHOICES";
+	}
 }
 
 document.addEventListener("keydown", (event) => {
@@ -112,7 +124,23 @@ document.addEventListener("keydown", (event) => {
 });
 
 function roundResults(){
+	if(player1Choice == 'dice'){
+		let dice = rollDice();
+		if(dice % 2 === 0){player1Result = 'believes';}
+		else{player1Result = 'rejects';}
+	} else if (player1Choice == 'pray'){
 
+	}
+}
+
+function rollDice(){
+	const randomDecimal = Math.random();
+	const randomNumber = Math.floor(randomDecimal * 6) + 1;
+	return randomNumber;
+}
+
+function pray(){
+	
 }
 
 generatePlayers();
