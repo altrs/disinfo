@@ -130,7 +130,7 @@ document.addEventListener("keydown", (event) => {
         	document.getElementById('main1').querySelector('p').style.background = "red";
         	document.getElementById('main2').querySelector('p').style.background = "red";
         }
-    } else if (event.key === 'b') {
+    } else if (event.key === 'b' && player1Choice != null && player2Choice != null) {
     	reset();
     	console.log("reset");
     }
@@ -251,7 +251,7 @@ function roundResults(){
 
 			player2Result = pray();
 			if(player2Result == 'answered'){
-				//gif change
+				document.getElementById('shakerimg').src = "spill.gif";
 
 				if(randomFact.isTrue == false){
 					resultText2.textContent = 'YOUR PRAYERS HAVE BEEN ANSWERED! THE SALT SHAKER HAS FALLEN, BESTOWING UPON YOUR CHARACTER A GLIMPSE OF CLARITY. THE STATEMENT IS FALSE, AND YOUR CHARACTER REJECTS IT. THE SALT SHAKER HAS ALSO CLEANSED YOUR CHARACTERS MIND, ANY FALSE STATMENTS PREVIOUSLY COLLECTED HAVE BEEN PURGED.';
@@ -281,7 +281,6 @@ function roundResults(){
 				resultText2.textContent = 'SORRY. YOUR PRAYERS HAVE NOT BEEN ANSWERED TODAY. YOUR CHARACTER BELIEVES THE STATEMENT.';
 				resultText2.style.margin = '10px';
 				resultText2.style.marginTop = '0px';
-				resultText2.style.fontSize = '0.5vw';
 				document.getElementById('pray2').appendChild(resultText2);
 
 				player2Cards.push(randomFact);
@@ -305,7 +304,7 @@ function rollDice(){
 
 function pray(){
 	let randomValue = Math.random();
- 	return randomValue < 0.1 ? 'ignored' : 'answered';
+ 	return randomValue < 0.8 ? 'ignored' : 'answered';
 }
 
 function reset() {
