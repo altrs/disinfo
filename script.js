@@ -10,8 +10,8 @@ let charTraits = ['name', 'gen','aff','loc','gender','occ','edu','hobby'];
 let allArrays = [names, generations, affilations, locations, genders, occupations, educations, hobbies];
 
 let facts = [
-    { text: "Taylor Swift’s <a href='https://twitter.com/Israel/status/1714922694414598419'>body guard</a> returned to his home country, Israel, to join the IDF, after the 10/19 Hamas attack.", isTrue: false },
-    { text: "Pope Francis catches media attention after wearing a <a href='https://www.tiktok.com/@niquerazzi/video/7214935132447264042?lang=en'>white puffer</a>", isTrue: false },
+    { text: "Taylor Swift’s <a target='_blank' href='https://twitter.com/Israel/status/1714922694414598419'>body guard</a> returned to his home country, Israel, to join the IDF, after the 10/19 Hamas attack.", isTrue: false },
+    { text: "Pope Francis catches media attention after wearing a <a target='_blank' href='https://www.tiktok.com/@niquerazzi/video/7214935132447264042?lang=en'>white puffer</a>", isTrue: false },
     { text: "Mattel is creating a line of decompostable barbies. The company plans to go plastic free by 2030", isTrue: false},
     { text: "Police forces arrayed against the pipeline protesters at the Standing Rock Indian Reservation raided and burned a protester camp", isTrue: false},
    	{ text: "Disney World was battling the Florida government in court to get a resort exemption, allowing anyone 18 and older to drink on property", isTrue: false},
